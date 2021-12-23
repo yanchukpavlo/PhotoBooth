@@ -3294,8 +3294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb9f74aa6293c4f82de18722a29848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foldersToSearch:
-  - Assets/_Input
+  foldersToSearch: Input
 --- !u!1 &909009800
 GameObject:
   m_ObjectHideFlags: 0

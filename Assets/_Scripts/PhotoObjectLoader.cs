@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class PhotoObjectLoader : MonoBehaviour
 {
-    [SerializeField] string[] foldersToSearch = { "Assets/_Input" };
+    [SerializeField] string foldersToSearch = "Input";
 
     int _index;
     GameObject _photoObject;
-    List<GameObject> _allPrefabs;
+    Object[] _allPrefabs;
 
     void Awake()
     {
-        _allPrefabs = GetAssets<GameObject>(foldersToSearch, "t:prefab");
+        _allPrefabs = Resources.LoadAll(foldersToSearch, typeof(GameObject));
     }
 
     private IEnumerator Start()
@@ -39,12 +38,12 @@ public class PhotoObjectLoader : MonoBehaviour
         if (isNext)
         {
             _index++;
-            if (_index > _allPrefabs.Count - 1) _index = 0;
+            if (_index > _allPrefabs.Length - 1) _index = 0;
         }
         else
         {
             _index--;
-            if (_index < 0) _index = _allPrefabs.Count - 1;
+            if (_index < 0) _index = _allPrefabs.Length - 1;
         }
     }
 
@@ -55,17 +54,5 @@ public class PhotoObjectLoader : MonoBehaviour
         GameObject obj = Instantiate(_allPrefabs[_index], transform.position, Quaternion.identity) as GameObject;
         _photoObject = obj;
         EventsManager.instance.NewPhotoObjectCreated(obj);
-    }
-
-    List<T> GetAssets<T>(string[] _foldersToSearch, string _filter) where T : Object
-    {
-        string[] guids = AssetDatabase.FindAssets(_filter, _foldersToSearch);
-        List<T> list = new List<T>();
-        for (int i = 0; i < guids.Length; i++)
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-            list.Add(AssetDatabase.LoadAssetAtPath<T>(path));
-        }
-        return list;
     }
 }

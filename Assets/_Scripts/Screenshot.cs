@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -44,7 +45,15 @@ public class Screenshot : MonoBehaviour
 
             byte[] byteArray = screenshotTexture.EncodeToPNG();
             var time = System.DateTime.UtcNow.ToString("-yyyy-MM-dd-HH-mm-ss-FF");
-            System.IO.File.WriteAllBytes(Application.dataPath + $"/_Output/Screenshot{time}.png", byteArray);
+# if UNITY_EDITOR
+            File.WriteAllBytes(Application.dataPath + $"/_Output/Screenshot{time}.png", byteArray);
+# else
+            if(!Directory.Exists(Application.streamingAssetsPath + "/Output"))
+            {
+                Directory.CreateDirectory(Application.streamingAssetsPath + "/Output");
+            }
+            File.WriteAllBytes(Application.streamingAssetsPath + $"/Output/Screenshot{time}.png", byteArray);
+#endif
         }
     }
 
