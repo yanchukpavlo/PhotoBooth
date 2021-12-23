@@ -129,6 +129,21 @@ namespace PhotoMode
                 photoModeUI.gameObject.SetActive(false);
         }
 
+        private void Start()
+        {
+            EventsManager.instance.onNewPhotoObjectCreated += NewPhotoObjectCreated;
+        }
+
+        private void OnDestroy()
+        {
+            EventsManager.instance.onNewPhotoObjectCreated -= NewPhotoObjectCreated;
+        }
+
+        private void NewPhotoObjectCreated(GameObject obj)
+        {
+            playerObject = obj;
+        }
+
         private void Update()
         {
             if (stickerController.IsActive())

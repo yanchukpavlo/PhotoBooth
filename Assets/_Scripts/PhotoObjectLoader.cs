@@ -43,7 +43,7 @@ public class PhotoObjectLoader : MonoBehaviour
         }
         else
         {
-            _index++;
+            _index--;
             if (_index < 0) _index = _allPrefabs.Count - 1;
         }
     }

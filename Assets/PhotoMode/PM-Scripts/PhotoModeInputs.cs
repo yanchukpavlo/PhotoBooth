@@ -31,6 +31,7 @@ namespace PhotoMode
         public InputActionReference resetAction;
         public InputActionReference toggleInterfaceAction;
         public InputActionReference toggleGridAction;
+        public InputActionReference takeScreenshotAction;
 
         [Space]
         [Header("Input System Actions - Sticker Mode")]
@@ -104,8 +105,14 @@ namespace PhotoMode
             photoModeActionAsset.actionMaps[0].actionTriggered += PhotoModeInputs_actionTriggered;
             photoModeActionAsset.actionMaps[1].actionTriggered += PhotoModeInputs_actionTriggered;
 
+            takeScreenshotAction.action.performed += TakeScreenshot_performed;
+
         }
 
+        private void TakeScreenshot_performed(InputAction.CallbackContext obj)
+        {
+            Screenshot.instance.TakeScreenshot();
+        }
 
         private void ResetAction_performed(InputAction.CallbackContext callback)
         {
