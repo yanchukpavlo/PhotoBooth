@@ -99,8 +99,8 @@ namespace PhotoMode
             photoModeMenusCanvas = photoModeMenus.GetComponent<CanvasGroup>();
 
             //Disable Photo Mode Event System if project has an exisiting Event System
-            if (projectEventSystem != photoModeEventSystem)
-                photoModeEventSystem.enabled = false;
+            //if (projectEventSystem != photoModeEventSystem)
+            //    photoModeEventSystem.enabled = false;
 
             //Add Input Listeners
             photoModeInputs.ResetEvent.AddListener(ResetValues);
@@ -160,11 +160,11 @@ namespace PhotoMode
 
             if (projectEventSystem != null)
             {
-                if (projectEventSystem != photoModeEventSystem)
-                    projectEventSystem.enabled = !active;
+                //if (projectEventSystem != photoModeEventSystem)
+                //    projectEventSystem.enabled = !active;
             }
 
-            photoModeEventSystem.enabled = active;
+            //photoModeEventSystem.enabled = active;
 
             //Project CinemachineBrain configuration
             ProjectCinemachineConfig(active);
